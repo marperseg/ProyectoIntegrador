@@ -1,0 +1,26 @@
+<div *ngIf="!this.loggedUser.logged">
+  <h3>Nothing here... Please log in.</h3>
+</div>
+
+<div *ngIf="this.loggedUser.logged">
+  <div *ngFor="let msg of outboxMsgs">
+    <mat-card class="message-card">
+      <mat-card-title>To: {{ msg.to }}</mat-card-title>
+      <mat-card-subtitle>{{ msg.date }}</mat-card-subtitle>
+      <mat-card-content>
+        {{ msg.body }}
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <a href="/compose" mat-button>
+          <mat-icon>reply</mat-icon>Send new
+        </a>
+        <button mat-button (click)="outboxDelete(msg.msgId, 'outbox')">
+          <mat-icon>delete</mat-icon>Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+  </div>
+</div>

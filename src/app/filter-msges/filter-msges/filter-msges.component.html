@@ -1,0 +1,94 @@
+<div *ngIf="!this.loggedUser.logged">
+  <h3>Nothing here... Please log in.</h3>
+</div>
+
+<div class="searchDiv" *ngIf="this.loggedUser.logged">
+  <h3>Search for messages...</h3>
+
+  <form
+    class="singUp-form"
+    (ngSubmit)="search(searchForm)"
+    #searchForm="ngForm"
+  >
+    <mat-form-field class="field" appearance="fill">
+      <mat-label>Type</mat-label>
+      <mat-select ngModel required="true" name="type">
+        <mat-option value="Sent">Sent</mat-option>
+        <mat-option value="Received">Received</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+
+    <p>Type any key word you'd like to search for...</p>
+    <mat-form-field class="field" appearance="fill">
+      <mat-label>Search field:</mat-label>
+      <input ngModel required="true" name="keyword" matInput />
+    </mat-form-field>
+    <br />
+
+    <button type="submit" mat-raised-button [disabled]="!searchForm.valid">
+      <mat-icon>search</mat-icon> Search
+    </button>
+  </form>
+</div>
+
+<br />
+<mat-divider></mat-divider>
+<br />
+
+
+<div class="resultsDiv">
+  <div *ngFor="let msg of inboxMsgsFiltered">
+    <mat-card class="message-card">
+      <!-- [ngStyle]="{'background-color': msg.read == false ? '#352440' : '#424242'}" -->
+      <mat-card-title
+        matBadge="*"
+        matBadgePosition="after"
+        matBadgeColor="warn"
+        [matBadgeHidden]="msg.read == true"
+        >From: {{ msg.fromName }}</mat-card-title
+      >
+      <mat-card-subtitle>{{ msg.date }}</mat-card-subtitle>
+      <mat-card-content>
+        {{ msg.body }}
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <a href="/compose" mat-button> <mat-icon>reply</mat-icon>Reply </a>
+        <button mat-button *ngIf="msg.read" (click)="markAsRead(msg.msgId, false); msg.read=false">
+          <mat-icon>drafts</mat-icon>
+        </button>
+        <button mat-button *ngIf="!msg.read" (click)="markAsRead(msg.msgId, true); msg.read=true">
+          <mat-icon>mail</mat-icon> Mark as read
+        </button>
+
+        <button mat-button (click)="inboxDelete(msg.msgId, 'inbox')">
+          <mat-icon>delete</mat-icon>Delete
+        </button>
+
+      </mat-card-actions>
+    </mat-card>
+
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+  </div>
+
+  <div *ngFor="let msg of outboxMsgsFiltered">
+    <mat-card class="message-card">
+      <mat-card-title>To: {{ msg.to }}</mat-card-title>
+      <mat-card-subtitle>{{ msg.date }}</mat-card-subtitle>
+      <mat-card-content>
+        {{ msg.body }}
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <a href="/compose" mat-button> <mat-icon>reply</mat-icon>Send new </a>
+        <button mat-button (click)="outboxDelete(msg.msgId, 'outbox')">
+          <mat-icon>delete</mat-icon>Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+  </div>
+</div>

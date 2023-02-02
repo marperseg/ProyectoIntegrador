@@ -1,0 +1,152 @@
+<div *ngIf="!this.userCreated.checked">
+  <h2>New User</h2>
+  <h3>Sing up:</h3>
+  <mat-divider></mat-divider>
+  <br />
+
+  <form
+    class="singUp-form"
+    (ngSubmit)="singUpSubmit(singUpForm)"
+    #singUpForm="ngForm"
+  >
+    <mat-form-field class="field" appearance="fill">
+      <mat-label>User Name</mat-label>
+      <input ngModel required="true" name="userName" matInput />
+    </mat-form-field>
+
+    <table cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="field" appearance="fill">
+            <mat-label>First name</mat-label>
+            <input ngModel required="true" name="firstName" matInput />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="field" appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input ngModel required="true" name="lastName" matInput />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <table cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="field" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input
+              ngModel
+              required="true"
+              name="password"
+              type="password"
+              matInput
+            />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="field" appearance="fill">
+            <mat-label>Confirm Password</mat-label>
+            <input
+              ngModel
+              required="true"
+              name="confirmPassword"
+              type="password"
+              matInput
+            />
+          </mat-form-field>
+          <p *ngIf="!this.passCorrect">Passwords do not match.</p>
+        </td>
+      </tr>
+    </table>
+
+    <table cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="field" appearance="fill">
+            <mat-label>Country</mat-label>
+            <mat-select ngModel required="true" name="country">
+              <mat-option
+                *ngFor="let country of countries"
+                [value]="country.value"
+              >
+                {{ country.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field
+            *ngIf="singUpForm.value.country"
+            class="field"
+            appearance="fill"
+          >
+            <mat-label>City</mat-label>
+            <div *ngIf="singUpForm.value.country == 'Argentina'">
+              <mat-select ngModel required="true" name="city">
+                <mat-option *ngFor="let city of citiesAR" [value]="city.value">
+                  {{ city.value }}
+                </mat-option>
+              </mat-select>
+            </div>
+            <div *ngIf="singUpForm.value.country == 'Uruguay'">
+              <mat-select ngModel required="true" name="city">
+                <mat-option *ngFor="let city of citiesUR" [value]="city.value">
+                  {{ city.value }}
+                </mat-option>
+              </mat-select>
+            </div>
+            <div *ngIf="singUpForm.value.country == 'Brasil'">
+              <mat-select ngModel required="true" name="city">
+                <mat-option *ngFor="let city of citiesBR" [value]="city.value">
+                  {{ city.value }}
+                </mat-option>
+              </mat-select>
+            </div>
+            <div *ngIf="singUpForm.value.country == 'Chile'">
+              <mat-select ngModel required="true" name="city">
+                <mat-option *ngFor="let city of citiesCH" [value]="city.value">
+                  {{ city.value }}
+                </mat-option>
+              </mat-select>
+            </div>
+            <div *ngIf="singUpForm.value.country == 'Mexico'">
+              <mat-select ngModel required="true" name="city">
+                <mat-option *ngFor="let city of citiesMX" [value]="city.value">
+                  {{ city.value }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <button type="submit" mat-raised-button [disabled]="!singUpForm.valid">
+      Sing Up
+    </button>
+  </form>
+</div>
+
+<div class="okDiv" *ngIf="this.userCreated.checked">
+  <h4 *ngIf="this.userCreated.repeted">
+    User name: "{{ this.userCreated.userName }}" is already registered, choose a
+    different one.
+  </h4>
+  <h4 *ngIf="!this.userCreated.repeted">
+    User "{{ this.userCreated.userName }}" successfully created...
+  </h4>
+  <p>Return to Log In page.</p>
+  <button
+    mat-raised-button
+    (click)="this.logOut()"
+    onclick="location.href='/home'"
+  >
+    Go to Log In
+  </button>
+
+  <!-- onclick="location.href='/home'" <a mat-stroked-button href="/home" >Go to Log In </a> -->
+
+  <!-- onclick="location.href='https://www.google.com/'" -->
+</div>

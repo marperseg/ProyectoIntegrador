@@ -1,0 +1,58 @@
+<body>
+  <div>
+    <h2>New Message</h2>
+    <h4>Compose a new message:</h4>
+    <mat-divider></mat-divider>
+    <br />
+  </div>
+  <div>
+    <form
+      class="newMsg-form"
+      (ngSubmit)="composeSubmit(NewMsg)"
+      #NewMsg="ngForm"
+    >
+      <app-msg-to (selected)="onSelection($event)"></app-msg-to>
+
+      <br />
+      <mat-form-field class="msgText" appearance="fill">
+        <mat-label>Message</mat-label>
+        <textarea
+          ngModel
+          name="message"
+          matInput
+          (keydown.enter)="$event.stopPropagation()"
+          placeholder="Your message here..."
+        ></textarea>
+        <mat-hint align="start"
+          ><strong>Don't disclose personal info</strong>
+        </mat-hint>
+        <mat-hint align="end"
+          >{{ NewMsg.value.message?.length }} / 256</mat-hint
+        >
+      </mat-form-field>
+      <br />
+      <button class="sendBtn" type="submit" mat-raised-button>
+        Send Message
+      </button>
+      <br />
+    </form>
+  </div>
+  <div class="topDiv">
+    <a href="/home" mat-raised-button>
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="keyboard_return"
+      ></mat-icon>
+      Back
+    </a>
+    <button mat-raised-button (click)="NewMsg.resetForm()">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="clear"
+      ></mat-icon>
+      Clear
+    </button>
+  </div>
+</body>

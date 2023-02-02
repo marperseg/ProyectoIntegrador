@@ -1,0 +1,33 @@
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon
+        *ngIf="this.unread != 0"
+        matBadge="{{ this.unread }}"
+        matBadgePosition="after"
+        matBadgeColor="warn"
+        class="example-tab-icon"
+        >inbox</mat-icon
+      >
+      Inbox
+    </ng-template>
+    <app-inbox></app-inbox>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">drafts</mat-icon>
+      Sent
+    </ng-template>
+    <app-outbox></app-outbox>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">filter_list</mat-icon>
+      Filter
+    </ng-template>
+
+    <app-filter-msges></app-filter-msges>
+  </mat-tab>
+</mat-tab-group>

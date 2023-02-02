@@ -1,0 +1,88 @@
+<div class="headDiv">
+  <button
+    *ngIf="!this.loggedUser.logged"
+    type="button"
+    mat-button
+    (click)="drawer.toggle()"
+    class="sideBarButton"
+  >
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Example home icon"
+      fontIcon="person_outline"
+    ></mat-icon
+    >Log In
+  </button>
+
+  <button
+    *ngIf="this.loggedUser.logged"
+    type="button"
+    mat-button
+    (click)="drawer.toggle()"
+    class="sideBarButton"
+  >
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Example home icon"
+      fontIcon="person_outline"
+    ></mat-icon
+    >{{ this.loggedUser.name }}
+  </button>
+
+  <button
+    *ngIf="this.loggedUser.logged"
+    routerLink="/compose"
+    type="button"
+    mat-button
+    class="newMsgButton"
+  >
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Example home icon"
+      fontIcon="create"
+    ></mat-icon
+    >New Message
+  </button>
+</div>
+
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="over">
+    <!-- (logged)="checkLogged($event)" -->
+    <app-log-in></app-log-in>
+    <br />
+
+    <div *ngIf="!this.loggedUser.logged" class="singUpDiv">
+      <p>New user? Please sing up...</p>
+      <button
+        routerLink="/singUp"
+        class="singUpBtn"
+        (click)="showFiller = !showFiller"
+        mat-raised-button
+      >
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="person_add"
+        ></mat-icon>
+        Sing Up
+      </button>
+    </div>
+
+    <br />
+    <button
+      type="button"
+      mat-button
+      (click)="drawer.toggle()"
+      class="sideBarButton"
+    >
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="arrow_back"
+      ></mat-icon>
+    </button>
+  </mat-drawer>
+  <div class="example-sidenav-content">
+    <app-top-tab></app-top-tab>
+  </div>
+</mat-drawer-container>

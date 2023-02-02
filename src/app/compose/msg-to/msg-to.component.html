@@ -1,0 +1,17 @@
+
+
+<!-- <mat-form-field class="field" appearance="fill">
+    <mat-label>To:</mat-label>
+    <mat-select ngModel name="to">
+      <mat-option *ngFor="let user of this.usersRetrived" [value]="user.userName">
+            {{user.userName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> -->
+
+  <mat-form-field class="field" appearance="fill">
+    <mat-label>To:</mat-label>
+    <mat-select ngModel name="to" multiple class="option" required="true" (ngModelChange)="selector($event)">
+      <mat-option *ngFor="let user of this.usersRetrived" [value]="user">{{user.userName}} ({{user.fullName}})</mat-option>
+    </mat-select>
+  </mat-form-field>

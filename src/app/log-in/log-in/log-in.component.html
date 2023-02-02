@@ -1,0 +1,42 @@
+<div *ngIf="!this.loggedUser.checked">
+  <h2>Log In:</h2>
+
+  <form
+    class="logIn-form"
+    (ngSubmit)="logInSubmit(logInForm)"
+    #logInForm="ngForm"
+  >
+    <mat-form-field class="field" appearance="fill">
+      <mat-label>User:</mat-label>
+      <input ngModel name="User" matInput required="true" />
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field" appearance="fill">
+      <mat-label>Password:</mat-label>
+      <input ngModel name="Password" type="password" matInput required="true" />
+    </mat-form-field>
+    <br />
+
+    <button type="submit" mat-raised-button>Log In</button>
+    <!-- <button onClick="window.location.reload()" type="submit">Log in</button> (click)="qLogged(true)" -->
+  </form>
+</div>
+
+<div class="loggedDiv" *ngIf="this.loggedUser.logged">
+  <h2>Hi {{ this.loggedUser.name }} !</h2>
+  <h2>Let's get started...</h2>
+  <br />
+  <br />
+  <button mat-raised-button (click)="logOut()">Log Out</button>
+</div>
+
+<div
+  class="loggedDiv"
+  *ngIf="this.loggedUser.checked && !this.loggedUser.logged"
+>
+  <h2>User information missmatch, try again...</h2>
+  <br />
+  <br />
+  <button mat-raised-button (click)="logOut()">Go to Log In</button>
+  <!-- <a mat-stroked-button href="/home">Go to Log In </a> -->
+</div>
